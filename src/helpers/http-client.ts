@@ -36,7 +36,7 @@ function isTokenExpired(token:string) {
 
 function HttpClient() {
   const accessToken = localStorage.getItem("token") || "";//useCookie('accessToken').value
-  if(accessToken && window.location.pathname.indexOf("auth/sign-in") != -1 && isTokenExpired(accessToken)){
+  if(accessToken && window.location.pathname.indexOf("auth/sign-in") == -1 && isTokenExpired(accessToken)){
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setTimeout(() => {

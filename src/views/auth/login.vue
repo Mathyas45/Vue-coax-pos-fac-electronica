@@ -62,6 +62,20 @@
               </b-col>
             </div>
 
+            <b-alert
+              :model-value="error.length > 0"
+              variant="danger"
+              class="shadow-sm border-theme-white-2 my-0 mt-2"
+            >
+              <div
+                class="d-inline-flex justify-content-center align-items-center thumb-xs bg-danger rounded-circle mx-auto me-1"
+              >
+                <i class="fas fa-xmark align-self-center mb-0 text-white"></i>
+              </div>
+              {{ " " }} <strong>Credenciales Incorrectas</strong> 
+            </b-alert>
+
+
             <b-form-group class="mb-0 row">
               <b-col cols="12">
                 <div class="d-grid mt-3">
@@ -121,6 +135,7 @@ import { useRoute } from "vue-router";
 import type { AxiosResponse } from "axios";
 import type { ResponseAuthLogin } from "@/types/auth";
 import router from "@/router";
+import { set } from "@vueuse/core";
 
 const credentials = reactive({
   email: "laravest@gmail.com",
@@ -141,31 +156,33 @@ const query = route.query;
 const error = ref("");
 
 const handleLogin = async () => {
-  // const result = await v.value.$validate();
-  // if (result) {
-  //   try {
-  //     const res: AxiosResponse<ResponseAuthLogin> = await HttpClient.post(
-  //       "auth/login",
-  //       credentials,
-  //     );
-  //     console.log(res);
-  //     if (res.data.access_token) {
+  const result = await v.value.$validate();
+  if (result) {
+    try {
+      const res: AxiosResponse<ResponseAuthLogin> = await HttpClient.post(
+        "auth/login",
+        credentials,
+      );
+      console.log(res);
+      if (res.data.access_token && res.data.user) {
         useAuth.saveSession({
-          ...{
-            "full_name": 'Jose Jaico',
-            "email": "laravest@gmail.com"
-          },//res.data.user,
-          token: "FSDFSDFSDFSD",//res.data.access_token,
+          ...res.data.user,
+          email: res.data.user.email ?? "",
+          full_name: res.data.user.full_name ?? "",
+          token: res.data.access_token,
         });
-        redirectUser();
-  //     }
-  //   } catch (e: any) {
-  //     console.log(e);
-  //     if (e.response?.data?.error) {
-  //       if (error.value.length == 0) error.value = e.response?.data?.error;
-  //     }
-  //   }
-  // }
+        // redirectUser();
+        setTimeout(() => {
+          window.location.reload();
+        }, 50);
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.response?.data?.error) {
+        if (error.value.length == 0) error.value = e.response?.data?.error;
+      }
+    }
+  }
 };
 
 const redirectUser = () => {

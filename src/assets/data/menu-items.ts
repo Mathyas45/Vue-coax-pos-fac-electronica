@@ -1,5 +1,4 @@
 import type { MenuItemType } from "@/types/menu";
-
 export const MENU_ITEMS: MenuItemType[] = [
   {
     key: "main",
@@ -10,44 +9,39 @@ export const MENU_ITEMS: MenuItemType[] = [
     key: "dashboards",
     icon: "iconoir-home-simple",
     label: "Dashboards",
-    children: [
-      {
-        key: "dashboard-analytics",
-        label: "Analytics",
-        route: { name: "dashboards.analytics" },
-        parentKey: "dashboards",
-      },
-      {
-        key: "dashboard-ecommerce",
-        label: "Ecommerce",
-        route: { name: "dashboards.ecommerce" },
-        parentKey: "dashboards",
-      },
-    ],
+    route: { name: "dashboards.analytics" },
+    parentKey: "dashboards",
+    permission: "all",
   },
   {
     key: "Accesos",
     label: "ACCESS",
     isTitle: true,
+    permissions: ['list_role','list_user']
   },
   {
     key: "roles",
     icon: "fas fa-unlock",
     label: "Roles y Permisos",
-    route: { name: "dashboards.ecommerce" },
+    route: { name: "roles.index" },
     parentKey: "roles",
+    permission: 'list_role',
   },
   {
     key: "usuarios",
     icon: "fas fa-users",
     label: "Usuarios",
-    route: { name: "dashboards.ecommerce" },
+    route: { name: "users.index" },
     parentKey: "usuarios",
+    permission: 'list_user',
   },
   {
     key: "Comercial",
     label: "COMERCIAL",
     isTitle: true,
+    permissions: ['list_categorie','list_product','register_product','list_client','register_sale','list_sale',
+      'register_guia_remision','list_guia_remision'
+    ]
   },
   {
     key: "categories",
@@ -55,6 +49,7 @@ export const MENU_ITEMS: MenuItemType[] = [
     label: "Categorias",
     route: { name: "dashboards.ecommerce" },
     parentKey: "categories",
+    permission: 'list_categorie',
   },
   {
     key: "products",
@@ -67,12 +62,14 @@ export const MENU_ITEMS: MenuItemType[] = [
         label: "Registrar",
         route: { name: "dashboards.ecommerce" },
         parentKey: "products",
+        permission: 'register_product',
       },
       {
         key: "list_products",
         label: "Listar",
         route: { name: "dashboards.ecommerce" },
         parentKey: "products",
+        permission: 'list_product',
       },
     ],
   },
@@ -82,6 +79,7 @@ export const MENU_ITEMS: MenuItemType[] = [
     label: "Clientes",
     route: { name: "dashboards.ecommerce" },
     parentKey: "clients",
+    permission: 'list_client',
   },
   {
     key: "sales",
@@ -94,64 +92,44 @@ export const MENU_ITEMS: MenuItemType[] = [
         label: "Registrar",
         route: { name: "dashboards.ecommerce" },
         parentKey: "sales",
+        permission: 'register_sale',
       },
       {
         key: "list_sales",
         label: "Listar",
         route: { name: "dashboards.ecommerce" },
         parentKey: "sales",
+        permission: 'list_sale',
       },
     ],
   },
-  // {
-    //   key: "page-authentication",
-    //   label: "Authentication",
-    //   isTitle: false,
-    //   icon: "iconoir-fingerprint-lock-circle",
-    //   children: [
-    //     {
-    //       key: "login",
-    //       label: "Log In",
-    //       route: { name: "auth.sign-in" },
-    //       parentKey: "page-authentication",
-    //     },
-    //     {
-    //       key: "register",
-    //       label: "Register",
-    //       route: { name: "auth.register" },
-    //       parentKey: "page-authentication",
-    //     },
-    //     {
-    //       key: "reset-pass",
-    //       label: "Re-Password",
-    //       route: { name: "auth.reset-pass" },
-    //       parentKey: "page-authentication",
-    //     },
-    //     {
-    //       key: "lock-screen",
-    //       label: "Lock Screen",
-    //       route: { name: "auth.lock-screen" },
-    //       parentKey: "page-authentication",
-    //     },
-    //     {
-    //       key: "maintenance",
-    //       label: "Maintenance",
-    //       route: { name: "auth.maintenance" },
-    //       target: "_blank",
-    //       parentKey: "page-authentication",
-    //     },
-    //     {
-    //       key: "error-404",
-    //       label: "Error 404",
-    //       route: { name: "error.404" },
-    //       parentKey: "page-authentication",
-    //     },
-    //     {
-    //       key: "error-500",
-    //       label: "Error 500",
-    //       route: { name: "error.500" },
-    //       parentKey: "page-authentication",
-    //     },
-    //   ],
-  // },
-];
+  {
+    key: "guias",
+    label: "Guia de Remisión",
+    isTitle: false,
+    icon: "fas fa-file-alt",
+    children: [
+      {
+        key: "register_guia",
+        label: "Registrar",
+        route: { name: "dashboards.ecommerce" },
+        parentKey: "guias",
+        permission: 'register_guia_remision',
+      },
+      {
+        key: "list_guia",
+        label: "Listar",
+        route: { name: "dashboards.ecommerce" },
+        parentKey: "guias",
+        permission: 'list_guia_remision',
+      },
+    ],
+  },
+  {
+    key: "configurat",
+    icon: "fas fa-wrench",
+    label: "Configuraciones",
+    route: { name: "dashboards.ecommerce" },
+    parentKey: "configurat",
+  },
+]
