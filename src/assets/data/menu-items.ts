@@ -47,7 +47,7 @@ export const MENU_ITEMS: MenuItemType[] = [
     key: "categories",
     icon: "fas fa-life-ring",
     label: "Categorias",
-    route: { name: "dashboards.ecommerce" },
+    route: { name: "category.index" },
     parentKey: "categories",
     permission: 'list_categorie',
   },
@@ -129,7 +129,7 @@ export const MENU_ITEMS: MenuItemType[] = [
     key: "configurat",
     icon: "fas fa-wrench",
     label: "Configuraciones",
-    route: { name: "dashboards.ecommerce" },
+    route: { name: "configuration.index" },
     parentKey: "configurat",
   },
 ]

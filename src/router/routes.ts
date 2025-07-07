@@ -124,14 +124,37 @@ const AccessRoutes = [
       permission: 'list_user',
     },
     component: () => import("@/views/user/index.vue"),
+  },
+  {
+    path: "/configuration",
+    name: "configuration.index",
+    meta: {
+      title: setTitle("Configuraciones"),
+      authRequired: true,
+      permission: 'all',
+    },
+    component: () => import("@/views/configuration/index.vue"),
   }
 ];
 
+const comercialRoutes = [
+  {
+    path: "/category",
+    name: "category.index",
+    meta: {
+      title: setTitle("Categorias"),
+      authRequired: true,
+      permission: 'list_categorie',
+    },
+    component: () => import("@/views/category/index.vue"),
+  },
+]
 
 
 export const allRoute = [
   ...authRoutes,
   ...errorRoutes,
   ...dashboardRoutes,
-  ...AccessRoutes
+  ...AccessRoutes,
+  ...comercialRoutes
 ];

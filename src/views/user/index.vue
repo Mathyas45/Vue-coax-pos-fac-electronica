@@ -245,6 +245,7 @@ const list = async () => {
         console.log(error);
     }
 }
+
 const reset = () => {
     search.value = "";
     list();
@@ -326,9 +327,9 @@ const store = async () => {
   } finally {
     // desactivar loading aunque haya error
     loading.value = false;
+    openModal.value = false;
   }
 };
-
 
 const editUser = (user: User) => {
     user_selected.value = user;
@@ -365,8 +366,7 @@ const deleteUser = async (user: User) => {
                 console.error('Error al eliminar el usuario:', error);
             }
             }
-        });
-
+    });
 }
 
 const loadFile = ($event:any) => {
